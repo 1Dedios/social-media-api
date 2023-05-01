@@ -45,19 +45,21 @@ public class SocialMediaController {
         String minPasswordLength = "    ";
 
         // if statements checking for client errors
-        if (account.getUsername() == null || getPassword.length() < minPasswordLength.length() || account.setUsername() != account.getUsername()) {
+        if (account.getUsername() == "" || getPassword.length() < minPasswordLength.length()) {
 
             // if conditions above met then it's a failed registration - ctx.status(400);
             ctx.status(400);
+        } else {
+
+            // if no client errors then we create an account
+            Account newAccountCreation = new Account (account.getUsername(), getPassword);
+    
+            // persistance to the database - ctx.json(mapper.writeValueAsString(Account))
+            ctx.json(mapper.writeValueAsString(newAccountCreation));
+    
+            // successful status
+            ctx.status(200);
         }
-        // if no client errors then we create an account
-        Account newAccountCreation = new Account (account.getUsername(), getPassword);
-
-        // persistance to the database - ctx.json(mapper.writeValueAsString(Account))
-        ctx.json(mapper.writeValueAsString(newAccountCreation));
-
-        // successful status
-        ctx.status(200);
     }
 
 
