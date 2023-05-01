@@ -41,16 +41,23 @@ public class SocialMediaController {
         // allows me to read the created fields of a new user account
         Account account = mapper.readValue(ctx.body(), Account.class);
 
-        // if statements checking username != null && password == 4 chars && username != Account.getAccount_id
-        if (account.getUsername() == null || String.length(account.getPassword()) < 4)
-        // if not met ctx.status(400);
-        // if conditions above met then account.setAccount_id, account.getUsername(), account.getPassword();
+        String getPassword = account.getPassword();
+        String minPasswordLength = "    ";
 
-        // ctx.json(mapper.writeValueAsString(Account))
+        // if statements checking for client errors
+        if (account.getUsername() == null || getPassword.length() < minPasswordLength.length() || account.setUsername() != account.getUsername()) {
 
+            // if conditions above met then it's a failed registration - ctx.status(400);
+            ctx.status(400);
+        }
+        // if no client errors then we create an account
+        Account newAccountCreation = new Account (account.getUsername(), getPassword);
 
+        // persistance to the database - ctx.json(mapper.writeValueAsString(Account))
+        ctx.json(mapper.writeValueAsString(newAccountCreation));
 
-        ctx.json("sample text");
+        // successful status
+        ctx.status(200);
     }
 
 
