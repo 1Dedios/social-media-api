@@ -14,7 +14,7 @@ public class AccountDAO {
     // create method to check for duplicate usernames in the database
 
 
-    public static String checkDuplicateUserName(String str) {
+    public static boolean checkDuplicateUserName(String str) {
 
         try{
             // create connection to database
@@ -33,15 +33,14 @@ public class AccountDAO {
             ResultSet rs = preparedStatement.executeQuery();
 
             // ResultSet Interface - next() moves to another row from its current position
-            // checking if username in db matches given str
-            // Account existingAccount = rs.getusername().toString(); - String representation of the username
-            // return existingAccount;
+            // checking if username in db matches given str - existingAccount.equals(str);
+            // if it does return true - else false;
 
             while (rs.next()) {
             
                 Account existingAccount = new Account(rs.getInt("account_id"), rs.getString("username"), rs.getString("password"));
             
-                return existingAccount.getUsername().toString();
+                return existingAccount.equals(str);
             
             }
 
@@ -51,7 +50,7 @@ public class AccountDAO {
             System.out.println(e.getMessage());
 
         }
-        return null; 
+        return false; 
 
         
 
