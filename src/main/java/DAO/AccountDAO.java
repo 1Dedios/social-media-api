@@ -34,7 +34,7 @@ public class AccountDAO {
 
             // ResultSet Interface - next() moves to another row from its current position
             // checking if username in db matches given str
-            // Account existingAccount = rs.getusername;
+            // Account existingAccount = rs.getusername().toString(); - String representation of the username
             // return existingAccount;
 
             while (rs.next()) {
