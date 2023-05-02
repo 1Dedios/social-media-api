@@ -30,6 +30,9 @@ public class SocialMediaController {
         app.post("/messages", this::createNewMessage);
         app.get("/messages", this::getAllMessages);
         app.get("/messages/{message_id}", this::getMessageByID);
+        app.delete("/messages/{message_id}", this::deleteMessageById);
+        app.patch("/messages/{message_id}", this::updateMessageById);
+        app.get("/accounts/{account_id}/messages", this::getAllMessagesByAccountId);
 
         return app;
     }
@@ -206,6 +209,14 @@ This is because the DELETE verb is intended to be idempotent, ie, multiple calls
 
 */
 
+    private void deleteMessageById (Context ctx) {
+
+
+
+
+
+    }
+
 
 /* ## 7: Our API should be able to update a message text identified by a message ID.
 
@@ -220,6 +231,17 @@ and the response status should be 200, which is the default. The message existin
 
 */
 
+    private void updateMessageById (Context ctx) {
+
+
+
+
+    }
+
+
+
+
+
 /* ## 8: Our API should be able to retrieve all messages written by a particular user.
 
 As a user, I should be able to submit a GET request on the endpoint GET localhost:8080/accounts/{account_id}/messages.
@@ -228,6 +250,18 @@ As a user, I should be able to submit a GET request on the endpoint GET localhos
 It is expected for the list to simply be empty if there are no messages. The response status should always be 200, which is the default. 
 
 */
+
+
+    private void getAllMessagesByAccountId (Context ctx) {
+
+
+
+
+
+
+
+
+    }
 
 
 
