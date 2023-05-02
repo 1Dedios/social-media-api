@@ -14,7 +14,7 @@ public class AccountDAO {
     // create method to check for duplicate usernames in the database
 
 
-    public String checkDuplicateUserName(String str) {
+    public static String checkDuplicateUserName(String str) {
 
         try{
             // create connection to database

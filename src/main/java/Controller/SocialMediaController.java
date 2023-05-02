@@ -30,7 +30,7 @@ public class SocialMediaController {
     }
 
     /**
-     * This is an example handler for an example endpoint.
+     *
      * @param ctx The Javalin Context object manages information about both the HTTP request and response.
      * @throws JsonProcessingException
      * @throws JsonMappingException
@@ -45,7 +45,7 @@ public class SocialMediaController {
         String getPassword = account.getPassword();
 
         // if statements checking for client errors
-        if (account.getUsername() ==  "" || getPassword.length() < 4 || account.getUsername() == checkDuplicateUserName(account.getUsername())) {
+        if (account.getUsername() ==  "" || getPassword.length() < 4 || account.getUsername() == AccountDAO.checkDuplicateUserName(account.getUsername())) {
 
             // if conditions above met then it's a failed registration - ctx.status(400);
             ctx.status(400);
