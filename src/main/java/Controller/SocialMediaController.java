@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import Model.Account;
+import Model.Message;
 import DAO.AccountDAO;
 
 /**
@@ -27,6 +28,8 @@ public class SocialMediaController {
         app.post("/register", this::newUserRegistration);
         app.post("/login", this::userLogin);
         app.post("/messages", this::createNewMessage);
+        app.get("/messages", this::getAllMessages);
+        app.get("/messages/{message_id}", this::getMessageByID);
 
         return app;
     }
@@ -126,6 +129,7 @@ including its message_id. The response status should be 200, which is the defaul
         // object mapper instance to read message
         ObjectMapper mapper = new ObjectMapper();
 
+        
 
         // successful if
         // message_text != "" || message_text.length() < 255 || posted_by == account_id(posted_by is fkey to account_id - DAO - get account by posted_by )
@@ -137,6 +141,59 @@ including its message_id. The response status should be 200, which is the defaul
 
     }
 
+
+/* ## 4: Our API should be able to retrieve all messages.
+
+As a user, I should be able to submit a GET request on the endpoint GET localhost:8080/messages.
+
+- The response body should contain a JSON representation of a list containing all messages retrieved from the database. 
+It is expected for the list to simply be empty if there are no messages. The response status should always be 200, which is the default. 
+*/
+
+    private void getAllMessages (Context ctx) throws JsonMappingException, JsonProcessingException {
+
+        // read through request
+        ObjectMapper mapper = new ObjectMapper();
+
+        // reading message
+        Message message = mapper.readValue(ctx.body(), Message.class);
+
+        // create a getAllMessages method in DAO
+
+        // ctx.status(200)
+        // MessageDAO.getAllMessages.toString()
+
+
+    }
+
+    /* ## 5: Our API should be able to retrieve a message by its ID.
+
+As a user, I should be able to submit a GET request on the endpoint GET localhost:8080/messages/{message_id}.
+
+- The response body should contain a JSON representation of the message identified by the message_id. 
+It is expected for the response body to simply be empty if there is no such message. 
+The response status should always be 200, which is the default. 
+
+*/
+    private void getMessageByID (Context ctx) throws JsonMappingException, JsonProcessingException {
+
+        // read value of id with Object Mapper
+
+        // read through request
+        ObjectMapper mapper = new ObjectMapper();
+
+        // reading message
+        Message message = mapper.readValue(ctx.body(), Message.class);
+
+
+        // ctx.status(200);
+
+
+
+
+
+
+    }
 
 
 
