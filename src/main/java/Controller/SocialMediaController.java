@@ -27,8 +27,8 @@ public class SocialMediaController {
      */
     public Javalin startAPI() {
         Javalin app = Javalin.create();
-        app.post("/register", this::newUserRegistration);
-        app.post("/login", this::userLogin);
+        app.post("/register", this::postNewUserRegistrationHandler);
+        app.post("/login", this::postUserLoginHandler);
         app.post("/messages", this::createNewMessage);
         app.get("/messages", this::getAllMessages);
         app.get("/messages/{message_id}", this::getMessageByID);
@@ -61,7 +61,7 @@ JSON of the Account, including its account_id. The response status should be 200
      * @throws JsonMappingException
      * @throws SQLException
      */
-    private void newUserRegistration(Context ctx) throws JsonMappingException, JsonProcessingException, SQLException {
+    private void postNewUserRegistrationHandler(Context ctx) throws JsonMappingException, JsonProcessingException, SQLException {
         // allows me to read the json data
         ObjectMapper mapper = new ObjectMapper();
 
@@ -71,7 +71,7 @@ JSON of the Account, including its account_id. The response status should be 200
         String getPassword = account.getPassword();
 
         // if statements checking for client errors 
-        if (account.getUsername() ==  "" || getPassword.length() < 4 || account.getUsername() == AccountDAO.checkDuplicateUserName(account.getUsername())) {
+        if (account.getUsername() ==  "" || getPassword.length() < 4 || account.getUsername() == AccountDAO.getUserName(account.getUsername())) {
 
             // if conditions above met then it's a failed registration - ctx.status(400);
             ctx.status(400);
@@ -101,7 +101,7 @@ If successful, the response body should contain a JSON of the account in the res
 The response status should be 200 OK, which is the default.
 - If the login is not successful, the response status should be 401. (Unauthorized) */
 
-    private void userLogin(Context ctx) throws JsonMappingException, JsonProcessingException {
+    private void postUserLoginHandler(Context ctx) throws JsonMappingException, JsonProcessingException {
 
         // object mapper instance
         ObjectMapper mapper = new ObjectMapper();
@@ -110,11 +110,15 @@ The response status should be 200 OK, which is the default.
         Account account = mapper.readValue(ctx.body(), Account.class);
 
         // if username and password match a real account on the db - successful login
-        if (account)
         // if (account.username && account.password == "an account you queried in DAO - getAccountByUsernameAndPassword")
         // ctx.status(200);
         // else not successful
         // ctx.status(401) - unauthorized
+        if (account(account.username, account.password) == AccountDAO.getUserLogin()) {
+            ctx.status(200);
+        } else {
+            ctx.status(401);
+        }
 
 
     } 
