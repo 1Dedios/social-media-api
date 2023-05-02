@@ -32,16 +32,14 @@ public class AccountDAO {
             // executes the query
             ResultSet rs = preparedStatement.executeQuery();
 
-            // while (rs.next())
-            // create a new instance of account to return - when returning an account from db you need all three constructors
+            // ResultSet Interface - next() moves to another row from its current position
+            // checking if username in db matches given str
             // Account existingAccount = rs.getusername;
             // return existingAccount;
 
-            Account rsCast = (Account) rs;
-
             while (rs.next()) {
             
-                Account existingAccount = new Account(rsCast.getUsername(), rsCast.getPassword());
+                Account existingAccount = new Account(rs.getInt("account_id"), rs.getString("username"), rs.getString("password"));
             
                 return existingAccount.getUsername().toString();
             
