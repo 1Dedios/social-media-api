@@ -42,23 +42,23 @@ public class SocialMediaController {
         Account account = mapper.readValue(ctx.body(), Account.class);
 
         String getPassword = account.getPassword();
-        String minPasswordLength = "    ";
 
         // if statements checking for client errors
-        if (account.getUsername() == "" || getPassword.length() < minPasswordLength.length()) {
+        if (account.getUsername() ==  "" || getPassword.length() < 4 || account.getUsername() == "select username from account where username=account.getUsername;") {
 
             // if conditions above met then it's a failed registration - ctx.status(400);
             ctx.status(400);
         } else {
+            // successful status
+            ctx.status(200);
 
             // if no client errors then we create an account
             Account newAccountCreation = new Account (account.getUsername(), getPassword);
     
-            // persistance to the database - ctx.json(mapper.writeValueAsString(Account))
-            ctx.json(mapper.writeValueAsString(newAccountCreation));
+            // persistance to the database - EITHER VALUE BELOW WORKS
+            // ctx.json(mapper.writeValueAsString(newAccountCreation));
+            ctx.json(newAccountCreation.toString());
     
-            // successful status
-            ctx.status(200);
         }
     }
 
