@@ -3,6 +3,8 @@ package Controller;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
+import java.sql.SQLException;
+
 // my imports
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -57,8 +59,9 @@ JSON of the Account, including its account_id. The response status should be 200
      * @param ctx The Javalin Context object manages information about both the HTTP request and response.
      * @throws JsonProcessingException
      * @throws JsonMappingException
+     * @throws SQLException
      */
-    private void newUserRegistration(Context ctx) throws JsonMappingException, JsonProcessingException {
+    private void newUserRegistration(Context ctx) throws JsonMappingException, JsonProcessingException, SQLException {
         // allows me to read the json data
         ObjectMapper mapper = new ObjectMapper();
 
@@ -67,7 +70,7 @@ JSON of the Account, including its account_id. The response status should be 200
 
         String getPassword = account.getPassword();
 
-        // if statements checking for client errors
+        // if statements checking for client errors 
         if (account.getUsername() ==  "" || getPassword.length() < 4 || account.getUsername() == AccountDAO.checkDuplicateUserName(account.getUsername())) {
 
             // if conditions above met then it's a failed registration - ctx.status(400);
@@ -107,6 +110,7 @@ The response status should be 200 OK, which is the default.
         Account account = mapper.readValue(ctx.body(), Account.class);
 
         // if username and password match a real account on the db - successful login
+        if (account)
         // if (account.username && account.password == "an account you queried in DAO - getAccountByUsernameAndPassword")
         // ctx.status(200);
         // else not successful
