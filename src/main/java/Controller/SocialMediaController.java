@@ -282,6 +282,10 @@ and the response status should be 200, which is the default. The message existin
 
 
 
+
+
+
+
     }
 
 
@@ -300,9 +304,12 @@ It is expected for the list to simply be empty if there are no messages. The res
 
     private void getAllMessagesByAccountId (Context ctx) {
 
+        
 
 
 
+        ctx.status(200);
+        ctx.json(MessageService.getAllMessagesByAccountId());
 
 
 

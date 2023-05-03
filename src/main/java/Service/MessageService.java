@@ -66,6 +66,19 @@ public class MessageService {
 
 
 
+    public static List<Message> getAllMessagesByAccountId (int id) {
+
+        if(MessageDAO.getAllMessagesByAccountId(id) == null) {
+            return null;
+        }
+        return MessageDAO.getAllMessagesByAccountId(id);
+
+        
+    }
+
+
+
+
 
 
 
