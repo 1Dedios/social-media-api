@@ -77,7 +77,7 @@ JSON of the Account, including its account_id. The response status should be 200
 
         // if statements checking for client errors 
         // TODO: method in AccountDAO that compares account.getUsername() with a username in the DB
-        if (account.getUsername() ==  "" || getPassword.length() < 4 || account.getUsername() == AccountDAO.existingUserName(account.getUsername())) {
+        if (account.getUsername() ==  "" || getPassword.length() < 4 || account.getUsername() == AccountDAO.existingUserName(account.username)) {
 
             // if conditions above met then it's a failed registration - ctx.status(400);
             ctx.status(400);

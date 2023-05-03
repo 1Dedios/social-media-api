@@ -60,13 +60,13 @@ public class AccountDAO {
             Connection connection = ConnectionUtil.getConnection();
     
             // sql statement
-            String sql = "SELECT * FROM account WHERE username=?;";
+            String sql = "SELECT username FROM account WHERE username=?;";
     
             // precompiled sql statement
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
     
             // sets username to value of str argument
-            preparedStatement.setString(2, str);
+            preparedStatement.setString(1, str);
     
             // executes the query
             ResultSet rs = preparedStatement.executeQuery();
