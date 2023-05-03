@@ -24,28 +24,11 @@ public class MessageDAO {
         // preparedStatement.setString(2, message.message_text);
         // preparedStatement.setBigInt(3, message.time_posted_epoch);
 
-        // preparedStatement.executeUpdate();
+        // ResultSet rs = preparedStatement.executeUpdate();
 
-        // ResultSet pKeyResultSet = preparedStatement.getGeneratedKeys();
-
-        // if (pKeyResultSet.next())
-        // int generated_message_id = pKeyResultSet.getInt(1);
-        // 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        // while (rs.next())
+        // Message newMessage = new Message (rs.getInt("posted_by"), rs.getString("message_text"), rs.getBigInt("time_posted_epoch"));
+        // return new Message;
 
 
     } 
