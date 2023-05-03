@@ -208,16 +208,11 @@ The response status should always be 200, which is the default.
 */
     private void getMessageByID (Context ctx) throws JsonMappingException, JsonProcessingException {
 
-        // read value of id with Object Mapper
-
-        // read through request
-        // ObjectMapper mapper = new ObjectMapper();
-
-        // reading message
-        // Message message = mapper.readValue(ctx.body(), Message.class);
+        int message_id = ctx.pathParam;
 
 
-        // ctx.status(200);
+        ctx.status(200);
+        ctx.json(MessageService.getMessageById(ctx.pathParam("message_id")));
 
 
 
