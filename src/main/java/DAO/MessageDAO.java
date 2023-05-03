@@ -175,7 +175,7 @@ public class MessageDAO {
 
 
 
-    public static Message updateMessageById (int id, Message message) {
+    public void updateMessageById (int id, Message message) {
 
         Connection connection = ConnectionUtil.getConnection();
 
@@ -191,13 +191,11 @@ public class MessageDAO {
             preparedStatement.executeUpdate();
 
 
-            
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
 
         }
-
-        return null;
 
 
 

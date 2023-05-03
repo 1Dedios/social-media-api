@@ -64,12 +64,12 @@ public class MessageService {
     }
 
 
-    public static Message updateMessageById (int id, Message message) {
+    public static Message updateMessageById (int message_id, Message message) {
 
-        if (updateMessageById(id, message) == null) {
+        if (updateMessageById(message_id, message) == null) {
             return null;
         }
-        return MessageDAO.updateMessageById(id, message);
+        return MessageDAO.getMessageById(message_id);
 
 
     }
