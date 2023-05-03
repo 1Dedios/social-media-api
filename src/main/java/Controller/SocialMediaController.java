@@ -302,14 +302,22 @@ It is expected for the list to simply be empty if there are no messages. The res
 */
 
 
-    private void getAllMessagesByAccountId (Context ctx) {
+    private void getAllMessagesByAccountId (Context ctx) throws JsonProcessingException {
 
-        
+        // ObjectMapper mapper = new ObjectMapper();
+
+        // Account context_id = mapper.readValue(ctx.body(), Account.class);
+
+        int account_id = Integer.parseInt(ctx.pathParam("account_id"));
+
+
+        // Message getUserMessages = MessageService.getMessageById(account_id);
+
 
 
 
         ctx.status(200);
-        ctx.json(MessageService.getAllMessagesByAccountId());
+        ctx.json(MessageService.getAllMessagesByAccountId(account_id));
 
 
 
@@ -318,6 +326,10 @@ It is expected for the list to simply be empty if there are no messages. The res
 
 
 
+
+
+
+    
 
 
 
