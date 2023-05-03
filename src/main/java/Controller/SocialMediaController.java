@@ -14,6 +14,7 @@ import Model.Account;
 import Model.Message;
 // import Model.Message;
 import Service.AccountService;
+import Service.MessageService;
 import DAO.AccountDAO;
 
 /**
@@ -153,7 +154,7 @@ including its message_id. The response status should be 200, which is the defaul
         Message message = mapper.readValue(ctx.body(), Message.class);
 
         // CREATE operation handled by DAO instantiated with MessageService
-        // Message newMessage = AccountService.newMessage(message)
+        Message newMessage = MessageService.newMessage(message);
 
         
 
@@ -163,6 +164,8 @@ including its message_id. The response status should be 200, which is the defaul
         // ctx.json(mapper.writeValueAsString(message)) - including message_id
         // else 
         // ctx.status(400) - client error
+
+        if (message.getMessage_text() != "" || message.getMessage_text().length() < 255 || message.getPosted_by())
 
 
     }
