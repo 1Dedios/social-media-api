@@ -32,6 +32,12 @@ public class AccountService {
         return newAccount; 
     }
 
+    // public static Account getUser (Account account) {
+    //     Account currentUser = AccountDAO.getUserLogin(account);
+    //     return currentUser;
+
+    // }
+
 
 
 

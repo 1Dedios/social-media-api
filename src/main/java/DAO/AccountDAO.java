@@ -53,7 +53,7 @@ public class AccountDAO {
 
     // create method to check for duplicate usernames in the database
 
-    public static String existingUserName(String str) {
+    public static String getExistingUserName(String str) {
 
         try {
             // create connection to database

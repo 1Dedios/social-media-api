@@ -77,7 +77,7 @@ JSON of the Account, including its account_id. The response status should be 200
 
         // if statements checking for client errors 
         // TODO: method in AccountDAO that compares account.getUsername() with a username in the DB
-        if (account.getUsername() ==  "" || getPassword.length() < 4 || account.getUsername() == AccountDAO.existingUserName(account.username)) {
+        if (account.getUsername() ==  "" || getPassword.length() < 4 || account.getUsername() == AccountDAO.getExistingUserName(account.username)) {
 
             // if conditions above met then it's a failed registration - ctx.status(400);
             ctx.status(400);
@@ -109,16 +109,24 @@ The response status should be 200 OK, which is the default.
         // object mapper instance
         // ObjectMapper mapper = new ObjectMapper();
 
-        // allows me to read the created fields of a new user account
+        // allows me to read through the provided ctx
         // Account account = mapper.readValue(ctx.body(), Account.class);
+        
+        // READ operation handled by AccountService and queried by DAO - can maybe use this for the duplicate user in user registration
+        // something like - Account postedUser = AccountService.getUser(account)
 
         // if username and password match a real account on the db - successful login
-        // if (account.username && account.password == "an account you queried in DAO - getAccountByUsernameAndPassword")
+        // if (account.getUsername() && account.getPassword() == "an account you queried in DAO - getAccountByUsernameAndPassword")
         // ctx.status(200);
+        // ctx.json(mapper.writeValueAsString(postedUser))
         // else not successful
         // ctx.status(401) - unauthorized
+
+
+
         // if (account(account.username, account.password) == AccountDAO.getUserLogin()) {
         //     ctx.status(200);
+        //     ctx.json(mapper.writeValueAsString(postedUser))
         // } else {
         //     ctx.status(401);
         // }
