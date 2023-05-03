@@ -32,7 +32,7 @@ public class SocialMediaController {
         Javalin app = Javalin.create();
         app.post("/register", this::postNewUserRegistrationHandler);
         app.post("/login", this::postUserLoginHandler);
-        app.post("/messages", this::createNewMessage);
+        app.post("/messages", this::postNewMessage);
         app.get("/messages", this::getAllMessages);
         app.get("/messages/{message_id}", this::getMessageByID);
         app.delete("/messages/{message_id}", this::deleteMessageById);
@@ -168,7 +168,7 @@ including its message_id. The response status should be 200, which is the defaul
         // else 
         // ctx.status(400) - client error
 
-        if (message.getMessage_text() == "" || message.getMessage_text().length() < 255 || message.getPosted_by() == getAccountID){
+        if (message.getMessage_text().isBlank() || message.getMessage_text().length() < 255 || message.getPosted_by() == getAccountID){
             ctx.status(200);
             ctx.json(mapper.writeValueAsString(newMessage));
         } else {

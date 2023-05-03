@@ -35,11 +35,11 @@ public class MessageDAO {
         try {
             String sql = "INSERT INTO message (posted_by, message_text, time_posted_epoch) VALUES (?, ?, ?);";
 
-            PreparedStatement preparedStatement = connect.prepareStatement(sql);
+            PreparedStatement preparedStatement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            preparedStatement.setInt(2, message.posted_by);
-            preparedStatement.setString(3, message.message_text);
-            preparedStatement.setLong(4, message.time_posted_epoch);
+            preparedStatement.setInt(1, message.posted_by);
+            preparedStatement.setString(2, message.message_text);
+            preparedStatement.setLong(3, message.time_posted_epoch);
 
             preparedStatement.executeUpdate();
 
