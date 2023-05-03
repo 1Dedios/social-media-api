@@ -11,6 +11,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import Model.Account;
+import Model.Message;
 // import Model.Message;
 import Service.AccountService;
 import DAO.AccountDAO;
@@ -146,14 +147,20 @@ including its message_id. The response status should be 200, which is the defaul
     private void createNewMessage(Context ctx) throws JsonMappingException, JsonProcessingException {
 
         // object mapper instance to read message
-        // ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper();
+
+        // allows me to read through the provided ctx (message) 
+        Message message = mapper.readValue(ctx.body(), Message.class);
+
+        // CREATE operation handled by DAO instantiated with MessageService
+        // Message newMessage = AccountService.newMessage(message)
 
         
 
         // successful if
         // message_text != "" || message_text.length() < 255 || posted_by == account_id(posted_by is fkey to account_id - DAO - get account by posted_by )
         // ctx.status(200)
-        // ctx.json(message) - including message_id
+        // ctx.json(mapper.writeValueAsString(message)) - including message_id
         // else 
         // ctx.status(400) - client error
 
