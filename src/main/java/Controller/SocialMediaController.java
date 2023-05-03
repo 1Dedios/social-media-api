@@ -107,29 +107,26 @@ The response status should be 200 OK, which is the default.
     private void postUserLoginHandler(Context ctx) throws JsonMappingException, JsonProcessingException {
 
         // object mapper instance
-        // ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper();
 
         // allows me to read through the provided ctx
-        // Account account = mapper.readValue(ctx.body(), Account.class);
+        Account account = mapper.readValue(ctx.body(), Account.class);
         
         // READ operation handled by AccountService and queried by DAO - can maybe use this for the duplicate user in user registration
-        // something like - Account postedUser = AccountService.getUser(account)
+        Account postedUser = AccountService.getUserLogin(account);
 
         // if username and password match a real account on the db - successful login
-        // if (account.getUsername() && account.getPassword() == "an account you queried in DAO - getAccountByUsernameAndPassword")
-        // ctx.status(200);
-        // ctx.json(mapper.writeValueAsString(postedUser))
+        if (account == postedUser) {
+            // ctx.status(200);
+            ctx.status(200);
+
+            // ctx.json(mapper.writeValueAsString(postedUser))
+            ctx.json(mapper.writeValueAsString(postedUser));
+        } else {
+            ctx.status(401);
+        }
         // else not successful
         // ctx.status(401) - unauthorized
-
-
-
-        // if (account(account.username, account.password) == AccountDAO.getUserLogin()) {
-        //     ctx.status(200);
-        //     ctx.json(mapper.writeValueAsString(postedUser))
-        // } else {
-        //     ctx.status(401);
-        // }
 
 
     } 
