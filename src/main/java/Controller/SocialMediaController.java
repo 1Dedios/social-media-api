@@ -16,6 +16,7 @@ import Model.Message;
 import Service.AccountService;
 import Service.MessageService;
 import DAO.AccountDAO;
+import DAO.MessageDAO;
 
 /**
  * TODO: You will need to write your own endpoints and handlers for your controller. The endpoints you will need can be
@@ -206,13 +207,19 @@ It is expected for the response body to simply be empty if there is no such mess
 The response status should always be 200, which is the default. 
 
 */
-    private void getMessageByID (Context ctx) throws JsonMappingException, JsonProcessingException {
+    private void getMessageByID (Context ctx) throws JsonProcessingException {
 
-        int message_id = ctx.pathParam;
+        ObjectMapper mapper = new ObjectMapper();
+
+        // int provided_id = mapper.readValue(ctx.body(), Integer.TYPE);
+
+        int message_id = Integer.parseInt(ctx.pathParam("message_id"));
+
+        Message getMessageById = MessageService.getMessageById(message_id);
 
 
         ctx.status(200);
-        ctx.json(MessageService.getMessageById(ctx.pathParam("message_id")));
+        ctx.json(mapper.writeValueAsString(getMessageById));
 
 
 

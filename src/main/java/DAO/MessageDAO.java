@@ -106,7 +106,7 @@ public class MessageDAO {
 
         try {
 
-            String sql = "SELECT message_id FROM message WHERE message_id=?;";
+            String sql = "SELECT * FROM message WHERE message_id=?;";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
