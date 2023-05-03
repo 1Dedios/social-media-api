@@ -16,10 +16,11 @@ public class AccountDAO {
 
     public static Account insertUser (Account account) {
         
+        // create connection to database
+        Connection connection = ConnectionUtil.getConnection();
+
         try {
 
-            // create connection to database
-            Connection connection = ConnectionUtil.getConnection();
     
             // sql statement
             String sql = "INSERT INTO account (username, password) VALUES (?, ?);";
@@ -55,9 +56,10 @@ public class AccountDAO {
 
     public static String getExistingUserName(String str) {
 
+        // create connection to database
+        Connection connection = ConnectionUtil.getConnection();
+
         try {
-            // create connection to database
-            Connection connection = ConnectionUtil.getConnection();
     
             // sql statement
             String sql = "SELECT username FROM account WHERE username=?;";
@@ -93,11 +95,11 @@ public class AccountDAO {
 
     public static Account getUserLogin (Account account) {
 
+        // create connection to database
+        Connection connection = ConnectionUtil.getConnection();
+
         try {
 
-            // create connection to database
-            Connection connection = ConnectionUtil.getConnection();
-    
             // sql statement
             String sql = "SELECT * FROM account WHERE username=?;";
     
@@ -130,6 +132,36 @@ public class AccountDAO {
 
 
     } 
+
+    public static int getAccountIdByMessagePostedId (int id) {
+        
+        Connection connection = ConnectionUtil.getConnection();
+        
+        try {
+
+            String sql = "SELECT account_id FROM account WHERE account_id=?;";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setInt(1, id);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+
+                Account account = new Account (rs.getInt("account_id"), rs.getString("username"), rs.getString("password"));
+
+                return account.getAccount_id();
+
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+
+        }
+        return 0;
+    }
 
 
 

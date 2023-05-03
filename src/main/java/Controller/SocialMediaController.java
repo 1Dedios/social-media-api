@@ -145,7 +145,7 @@ including its message_id. The response status should be 200, which is the defaul
 - If the creation of the message is not successful, the response status should be 400. (Client error)
  */
 
-    private void createNewMessage(Context ctx) throws JsonMappingException, JsonProcessingException {
+    private void postNewMessage(Context ctx) throws JsonMappingException, JsonProcessingException, SQLException {
 
         // object mapper instance to read message
         ObjectMapper mapper = new ObjectMapper();
@@ -155,6 +155,9 @@ including its message_id. The response status should be 200, which is the defaul
 
         // CREATE operation handled by DAO instantiated with MessageService
         Message newMessage = MessageService.newMessage(message);
+
+        // READ operation handled by AccountDAO and instantiated by AccountService
+        int getAccountID = AccountService.getAccount_Id(newMessage.getPosted_by());
 
         
 
@@ -166,11 +169,11 @@ including its message_id. The response status should be 200, which is the defaul
         // ctx.status(400) - client error
 
         // TODO: create method in AccountDAO to get account by account id
-        if (message.getMessage_text() != "" || message.getMessage_text().length() < 255 || message.getPosted_by() == account_id) {
+        if (message.getMessage_text() != "" || message.getMessage_text().length() < 255 || message.getPosted_by() == getAccountID){
             ctx.status(200);
             ctx.json(mapper.writeValueAsString(newMessage));
         } else {
-            ctx.status(400);
+            ctx.status(400); 
         }
 
 

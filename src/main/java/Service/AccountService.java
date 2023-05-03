@@ -38,6 +38,16 @@ public class AccountService {
 
     }
 
+    public static int getAccount_Id (int id) {
+
+        int account_id = AccountDAO.getAccountIdByMessagePostedId(id);
+
+        return account_id;
+
+
+
+    }
+
 
 
 
