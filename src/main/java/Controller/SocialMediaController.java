@@ -277,31 +277,29 @@ and the response status should be 200, which is the default. The message existin
 
 */
 
-    private void updateMessageById (Context ctx) {
+    private void updateMessageById (Context ctx) throws JsonMappingException, JsonProcessingException {
 
-        // ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper();
 
-        // Message message = mapper.readValue(ctx.body(), Message.class);
+        Message message = mapper.readValue(ctx.body(), Message.class);
 
         // read value of parameter
-        // int message_id = Integer.parseInt(ctx.pathParam("message_id"));
+        int message_id = Integer.parseInt(ctx.pathParam("message_id"));
         
 
-        // retrieving 
-        // Message getMessageById = MessageService.getMessageById(message_id);
+        // updating 
+        Message updateMessage = MessageService.updateMessageById(message_id, message);
 
+        // getting message by messageID
+        Message getMessageById = MessageService.getMessageById(message_id);
 
         // update successful if
-        // if (message_id == getMessageId && message.getMessage_text() != "" && message.length() < 255)
-        // if conditions above are met then successful
-        // ctx.json(mapper.writeValueAsString(message));
-        // else ctx.status(400);
-
-
-
-
-
-
+        if (message_id == getMessageById.getMessage_id() && (message.getMessage_text() != "" && message.getMessage_text().length() < 255)) {
+            
+            ctx.json(mapper.writeValueAsString(updateMessage));
+        } else {
+            ctx.status(400);
+        }
 
 
     }
