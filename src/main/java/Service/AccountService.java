@@ -28,9 +28,8 @@ public class AccountService {
 
     public Account addUser (Account accountDAO) {
 
-        // TODO: create insertUser method in AccountDAO
-        //Account newAccount = accountDAO.insertUser(accountDAO);
-        // return newAccount; 
+        Account newAccount = AccountDAO.insertUser(accountDAO);
+        return newAccount; 
     }
 
 

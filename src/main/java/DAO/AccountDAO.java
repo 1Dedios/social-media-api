@@ -14,7 +14,7 @@ public class AccountDAO {
 
     // insertUser method
 
-    public Account insertUser (Account account) {
+    public static Account insertUser (Account account) {
         
         try {
 
