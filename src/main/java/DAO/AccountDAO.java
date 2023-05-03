@@ -12,6 +12,56 @@ import Util.ConnectionUtil;
 
 public class AccountDAO {
 
+    // insertUser method
+
+    public Account insertUser (Account account) {
+        
+        try {
+
+            // create connection to database
+            Connection connection = ConnectionUtil.getConnection();
+    
+            // sql statement
+            String sql = "INSERT INTO account (username, password) VALUES (?, ?);";
+    
+            // precompiled sql statement
+            PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+    
+            // sets values to values of account arg
+            preparedStatement.setString(1, account.username);
+            preparedStatement.setString(2, account.password);
+    
+            // executes the query
+            preparedStatement.executeQuery();
+
+            ResultSet pKeyResultSet = preparedStatement.getGeneratedKeys();
+
+            if(pKeyResultSet.next()) {
+                int generated_account_id = (int) pKeyResultSet.getInt(1);
+
+                return new Account (generated_account_id, account.username, account.password);
+            }
+
+
+    
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
     // create method to check for duplicate usernames in the database
 
 
@@ -22,7 +72,7 @@ public class AccountDAO {
             Connection connection = ConnectionUtil.getConnection();
     
             // sql statement
-            String sql = "SELECT * FROM account WHERE username=?";
+            String sql = "SELECT * FROM account WHERE username=?;";
     
             // precompiled sql statement
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
