@@ -168,8 +168,7 @@ including its message_id. The response status should be 200, which is the defaul
         // else 
         // ctx.status(400) - client error
 
-        // TODO: create method in AccountDAO to get account by account id
-        if (message.getMessage_text() != "" || message.getMessage_text().length() < 255 || message.getPosted_by() == getAccountID){
+        if (message.getMessage_text() == "" || message.getMessage_text().length() < 255 || message.getPosted_by() == getAccountID){
             ctx.status(200);
             ctx.json(mapper.writeValueAsString(newMessage));
         } else {
