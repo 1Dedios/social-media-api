@@ -50,6 +50,19 @@ public class MessageService {
 
     }
 
+    public static Message deletMessageById (int id) {
+
+        if (MessageDAO.getMessageById(id) == null) {
+            return null;
+        }
+        return MessageDAO.getMessageById(id);
+
+
+
+
+
+    }
+
 
 
 

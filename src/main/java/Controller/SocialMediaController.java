@@ -239,7 +239,23 @@ This is because the DELETE verb is intended to be idempotent, ie, multiple calls
 
 */
 
-    private void deleteMessageById (Context ctx) {
+    private void deleteMessageById (Context ctx) throws JsonProcessingException {
+
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        // using the getMessageById method in MessageService and MessageDAO
+
+        // to parse message_id given in the path parameter
+        int message_id = Integer.parseInt(ctx.pathParam("message_id"));
+
+
+        Message getMessageById = MessageService.getMessageById(message_id);
+
+        // this should equal the variable that retrieved message with a getmessage text method after it
+        String messageText = getMessageById.getMessage_text();
+
+        ctx.json(mapper.writeValueAsString(messageText));
 
 
 
