@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import Model.Account;
 import Model.Message;
+import Service.AccountService;
 import DAO.AccountDAO;
 
 /**
@@ -68,7 +69,6 @@ JSON of the Account, including its account_id. The response status should be 200
         // allows me to read the created fields of a new user account
         Account account = mapper.readValue(ctx.body(), Account.class);
 
-        // TODO: create addUser() method in AccountService
         Account addedUser = AccountService.addUser(account);
 
         String getPassword = account.getPassword();
