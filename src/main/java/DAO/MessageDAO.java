@@ -37,9 +37,9 @@ public class MessageDAO {
 
             PreparedStatement preparedStatement = connect.prepareStatement(sql);
 
-            preparedStatement.setInt(1, message.posted_by);
-            preparedStatement.setString(2, message.message_text);
-            preparedStatement.setLong(3, message.time_posted_epoch);
+            preparedStatement.setInt(2, message.posted_by);
+            preparedStatement.setString(3, message.message_text);
+            preparedStatement.setLong(4, message.time_posted_epoch);
 
             preparedStatement.executeUpdate();
 

@@ -145,7 +145,7 @@ including its message_id. The response status should be 200, which is the defaul
 - If the creation of the message is not successful, the response status should be 400. (Client error)
  */
 
-    private void postNewMessage(Context ctx) throws JsonMappingException, JsonProcessingException, SQLException {
+    private void postNewMessage(Context ctx) throws JsonMappingException, JsonProcessingException {
 
         // object mapper instance to read message
         ObjectMapper mapper = new ObjectMapper();
