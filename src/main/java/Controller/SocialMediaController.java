@@ -68,9 +68,13 @@ JSON of the Account, including its account_id. The response status should be 200
         // allows me to read the created fields of a new user account
         Account account = mapper.readValue(ctx.body(), Account.class);
 
+        // TODO: create addUser() method in AccountService
+        Account addedUser = AccountService.addUser(account);
+
         String getPassword = account.getPassword();
 
         // if statements checking for client errors 
+        // TODO: method in AccountDAO that compares account.getUsername() with a username in the DB
         if (account.getUsername() ==  "" || getPassword.length() < 4 || account.getUsername() == AccountDAO.getUserName(account.getUsername())) {
 
             // if conditions above met then it's a failed registration - ctx.status(400);
@@ -78,13 +82,10 @@ JSON of the Account, including its account_id. The response status should be 200
         } else {
             // successful status
             ctx.status(200);
-
-            // if no client errors then we create an account
-            Account newAccountCreation = new Account (account.getUsername(), getPassword);
     
-            // persistance to the database - EITHER VALUE BELOW WORKS
+            // persistance to the database
             // ctx.json(mapper.writeValueAsString(newAccountCreation));
-            ctx.json(newAccountCreation.toString());
+            ctx.json(mapper.writeValueAsString(addedUser));
     
         }
     }
