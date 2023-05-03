@@ -187,18 +187,12 @@ As a user, I should be able to submit a GET request on the endpoint GET localhos
 It is expected for the list to simply be empty if there are no messages. The response status should always be 200, which is the default. 
 */
 
-    private void getAllMessages (Context ctx) throws JsonMappingException, JsonProcessingException {
+    private void getAllMessages (Context ctx) {
 
-        // read through request
-        // ObjectMapper mapper = new ObjectMapper();
 
-        // reading message
-        // Message message = mapper.readValue(ctx.body(), Message.class);
-
-        // create a getAllMessages method in DAO
-
-        // ctx.status(200)
-        // MessageDAO.getAllMessages.toString()
+        
+        ctx.status(200);
+        ctx.json(MessageService.getAllMessages());
 
 
     }
