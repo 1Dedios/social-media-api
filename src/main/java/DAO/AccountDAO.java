@@ -51,19 +51,7 @@ public class AccountDAO {
     }
 
 
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
     // create method to check for duplicate usernames in the database
-
 
     public static String getUserName(String str) {
 

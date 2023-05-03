@@ -69,9 +69,10 @@ JSON of the Account, including its account_id. The response status should be 200
         // allows me to read the created fields of a new user account
         Account account = mapper.readValue(ctx.body(), Account.class);
 
-        // CREATE operation handled by service
+        // CREATE user operation handled by service
         Account addedUser = AccountService.addUser(account);
 
+        // created for readability in if statement
         String getPassword = account.getPassword();
 
         // if statements checking for client errors 

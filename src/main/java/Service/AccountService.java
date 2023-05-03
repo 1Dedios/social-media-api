@@ -26,9 +26,9 @@ public class AccountService {
     }
 
 
-    public static Account addUser (Account accountDAO) {
+    public static Account addUser (Account account) {
 
-        Account newAccount = AccountDAO.insertUser(accountDAO);
+        Account newAccount = AccountDAO.insertUser(account);
         return newAccount; 
     }
 
