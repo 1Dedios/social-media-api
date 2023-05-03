@@ -64,6 +64,17 @@ public class MessageService {
     }
 
 
+    public static Message updateMessageById (int id, Message message) {
+
+        if (updateMessageById(id, message) == null) {
+            return null;
+        }
+        return MessageDAO.updateMessageById(id, message);
+
+
+    }
+
+
 
 
     public static List<Message> getAllMessagesByAccountId (int id) {
@@ -75,6 +86,9 @@ public class MessageService {
 
         
     }
+
+
+
 
 
 

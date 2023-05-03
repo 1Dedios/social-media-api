@@ -175,6 +175,40 @@ public class MessageDAO {
 
 
 
+    public static Message updateMessageById (int id, Message message) {
+
+        Connection connection = ConnectionUtil.getConnection();
+
+        try {
+
+            String sql = "UPDATE message SET message_text=? WHERE posted_by=?;";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, message.getMessage_text());
+            preparedStatement.setInt(2, id);
+
+            preparedStatement.executeUpdate();
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+
+        }
+
+        return null;
+
+
+
+
+
+    }
+
+
+
+
+
+
 
 
 

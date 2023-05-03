@@ -279,6 +279,24 @@ and the response status should be 200, which is the default. The message existin
 
     private void updateMessageById (Context ctx) {
 
+        // ObjectMapper mapper = new ObjectMapper();
+
+        // Message message = mapper.readValue(ctx.body(), Message.class);
+
+        // read value of parameter
+        // int message_id = Integer.parseInt(ctx.pathParam("message_id"));
+        
+
+        // retrieving 
+        // Message getMessageById = MessageService.getMessageById(message_id);
+
+
+        // update successful if
+        // if (message_id == getMessageId && message.getMessage_text() != "" && message.length() < 255)
+        // if conditions above are met then successful
+        // ctx.json(mapper.writeValueAsString(message));
+        // else ctx.status(400);
+
 
 
 
@@ -329,7 +347,7 @@ It is expected for the list to simply be empty if there are no messages. The res
 
 
 
-    
+
 
 
 
