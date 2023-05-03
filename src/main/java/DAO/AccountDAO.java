@@ -28,11 +28,11 @@ public class AccountDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
     
             // sets values to values of account arg
-            preparedStatement.setString(1, account.username);
-            preparedStatement.setString(2, account.password);
+            preparedStatement.setString(1, account.getUsername());
+            preparedStatement.setString(2, account.getPassword());
     
             // executes the query
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
 
             ResultSet pKeyResultSet = preparedStatement.getGeneratedKeys();
 
@@ -53,7 +53,7 @@ public class AccountDAO {
 
     // create method to check for duplicate usernames in the database
 
-    public static String getUserName(String str) {
+    public static String existingUserName(String str) {
 
         try {
             // create connection to database
@@ -77,9 +77,10 @@ public class AccountDAO {
     
             while (rs.next()) {
             
-                Account existingAccount = new Account(rs.getInt("account_id"), rs.getString("username"), rs.getString("password"));
+                String existingAccount = rs.getString("username");
             
-                return existingAccount.getUsername();
+                // Account account(rs.getInt("account_id"), rs.getString("username"), rs.getString("password"))
+                return existingAccount;
                 
             }
 
@@ -125,23 +126,3 @@ public class AccountDAO {
 
 
     } 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}

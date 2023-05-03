@@ -11,7 +11,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import Model.Account;
-import Model.Message;
+// import Model.Message;
 import Service.AccountService;
 import DAO.AccountDAO;
 
@@ -77,7 +77,7 @@ JSON of the Account, including its account_id. The response status should be 200
 
         // if statements checking for client errors 
         // TODO: method in AccountDAO that compares account.getUsername() with a username in the DB
-        if (account.getUsername() ==  "" || getPassword.length() < 4 || account.getUsername() == AccountDAO.getUserName(account.getUsername())) {
+        if (account.getUsername() ==  "" || getPassword.length() < 4 || account.getUsername() == AccountDAO.existingUserName(account.getUsername())) {
 
             // if conditions above met then it's a failed registration - ctx.status(400);
             ctx.status(400);
@@ -107,21 +107,21 @@ The response status should be 200 OK, which is the default.
     private void postUserLoginHandler(Context ctx) throws JsonMappingException, JsonProcessingException {
 
         // object mapper instance
-        ObjectMapper mapper = new ObjectMapper();
+        // ObjectMapper mapper = new ObjectMapper();
 
         // allows me to read the created fields of a new user account
-        Account account = mapper.readValue(ctx.body(), Account.class);
+        // Account account = mapper.readValue(ctx.body(), Account.class);
 
         // if username and password match a real account on the db - successful login
         // if (account.username && account.password == "an account you queried in DAO - getAccountByUsernameAndPassword")
         // ctx.status(200);
         // else not successful
         // ctx.status(401) - unauthorized
-        if (account(account.username, account.password) == AccountDAO.getUserLogin()) {
-            ctx.status(200);
-        } else {
-            ctx.status(401);
-        }
+        // if (account(account.username, account.password) == AccountDAO.getUserLogin()) {
+        //     ctx.status(200);
+        // } else {
+        //     ctx.status(401);
+        // }
 
 
     } 
@@ -141,7 +141,7 @@ including its message_id. The response status should be 200, which is the defaul
     private void createNewMessage(Context ctx) throws JsonMappingException, JsonProcessingException {
 
         // object mapper instance to read message
-        ObjectMapper mapper = new ObjectMapper();
+        // ObjectMapper mapper = new ObjectMapper();
 
         
 
@@ -167,10 +167,10 @@ It is expected for the list to simply be empty if there are no messages. The res
     private void getAllMessages (Context ctx) throws JsonMappingException, JsonProcessingException {
 
         // read through request
-        ObjectMapper mapper = new ObjectMapper();
+        // ObjectMapper mapper = new ObjectMapper();
 
         // reading message
-        Message message = mapper.readValue(ctx.body(), Message.class);
+        // Message message = mapper.readValue(ctx.body(), Message.class);
 
         // create a getAllMessages method in DAO
 
@@ -194,10 +194,10 @@ The response status should always be 200, which is the default.
         // read value of id with Object Mapper
 
         // read through request
-        ObjectMapper mapper = new ObjectMapper();
+        // ObjectMapper mapper = new ObjectMapper();
 
         // reading message
-        Message message = mapper.readValue(ctx.body(), Message.class);
+        // Message message = mapper.readValue(ctx.body(), Message.class);
 
 
         // ctx.status(200);
