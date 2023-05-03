@@ -64,9 +64,9 @@ public class MessageService {
     }
 
 
-    public static Message updateMessageById (int message_id, Message message) {
+    public static Message updateMessageById (int message_id, String message) {
 
-        if (updateMessageById(message_id, message) == null) {
+        if (MessageDAO.getMessageById(message_id) == null) {
             return null;
         }
         return MessageDAO.getMessageById(message_id);

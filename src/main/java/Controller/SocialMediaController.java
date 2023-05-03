@@ -288,7 +288,7 @@ and the response status should be 200, which is the default. The message existin
         
 
         // updating 
-        Message updateMessage = MessageService.updateMessageById(message_id, message);
+        Message updateMessage = MessageService.updateMessageById(message_id, message.getMessage_text());
 
         // getting message by messageID
         Message getMessageById = MessageService.getMessageById(message_id);
