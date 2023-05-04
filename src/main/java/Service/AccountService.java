@@ -41,10 +41,6 @@ public class AccountService {
     public static Account getUserName (String account_username) {
         Account currentUser = AccountDAO.getUserName(account_username);
 
-        if(currentUser == null) {
-            return null;
-        }
-
         return currentUser;
 
     }

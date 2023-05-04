@@ -40,7 +40,7 @@ public class AccountDAO {
 
 
             if(pKeyResultSet.next()) {
-                int generated_account_id = pKeyResultSet.getInt(1);
+                int generated_account_id = (int) pKeyResultSet.getLong(1);
 
                 return new Account (generated_account_id, account.username, account.password);
             }

@@ -81,9 +81,12 @@ JSON of the Account, including its account_id. The response status should be 200
         // reading a login in the database
         Account existingUserName = AccountService.getUserName(account.getUsername());
 
+        System.out.println("Existing user: " + existingUserName); // add this logging statement
+        System.out.println("Existing username: " + (existingUserName != null ? existingUserName.getUsername() : "null"));
+
         // if statements checking for client errors 
         // TODO: method in AccountDAO that compares account.getUsername() with a username in the DB
-        if (account.getUsername().isBlank() || getPassword.length() < 4 || account == existingUserName) {
+        if (account.getUsername().isBlank() || getPassword.length() < 4 || existingUserName != null) {
 
             // if conditions above met then it's a failed registration - ctx.status(400);
             ctx.status(400);
