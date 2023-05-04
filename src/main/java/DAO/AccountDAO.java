@@ -56,46 +56,7 @@ public class AccountDAO {
 
     // create method to check for duplicate usernames in the database
 
-    public static String getExistingUserName(String str) {
-
-        // create connection to database
-        Connection connection = ConnectionUtil.getConnection();
-
-        try {
-    
-            // sql statement
-            String sql = "SELECT username FROM account WHERE username=?;";
-    
-            // precompiled sql statement
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-    
-            // sets username to value of str argument
-            preparedStatement.setString(1, str);
-    
-            // executes the query
-            ResultSet rs = preparedStatement.executeQuery();
-    
-            // ResultSet Interface - next() moves to another row from its current position
-            // checking if username in db matches given str - existingAccount.equals(str);
-            // if it does return true - else false;
-    
-            while (rs.next()) {
-            
-                String existingAccount = rs.getString("username");
-            
-                // Account account(rs.getInt("account_id"), rs.getString("username"), rs.getString("password"))
-                return existingAccount;
-                
-            }
-
-        } catch (SQLException e) {
-            return e.getMessage();
-        }
-        return null;
-
-    }
-
-    public static Account getUserLogin (Account account) {
+    public static String getUserName (String account_username) {
 
         // create connection to database
         Connection connection = ConnectionUtil.getConnection();
@@ -109,7 +70,7 @@ public class AccountDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
     
             // sets username to value of str argument
-            preparedStatement.setString(2, account.getUsername());
+            preparedStatement.setString(1, account_username);
             
     
             // executes the query
@@ -117,9 +78,9 @@ public class AccountDAO {
 
             while (rs.next()) {
 
-                Account userLogin = new Account (rs.getInt("account_id"), rs.getString("username"), rs.getString("password"));
+                Account account = new Account (rs.getInt("account_id"), rs.getString("username"), rs.getString("password"));
 
-                return userLogin; 
+                return account.getUsername(); 
 
             }
 

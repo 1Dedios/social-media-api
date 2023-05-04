@@ -26,17 +26,34 @@ public class AccountService {
     }
 
 
-    public static Account addUser (Account account) {
 
+
+
+
+
+
+
+
+
+
+
+    public static Account addUser (Account account) {
         Account newAccount = AccountDAO.insertUser(account);
+
+
         return newAccount; 
     }
 
-    public static Account getUserLogin (Account account) {
-        Account currentUser = AccountDAO.getUserLogin(account);
+
+
+
+    public static String getUserName (String account_username) {
+        String currentUser = AccountDAO.getUserName(account_username);
         return currentUser;
 
     }
+
+
 
     public static int getAccount_Id (int id) {
 
