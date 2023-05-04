@@ -56,7 +56,7 @@ public class AccountDAO {
 
     // create method to check for duplicate usernames in the database
 
-    public static String getUserName (String account_username) {
+    public static Account getUserName (String account_username) {
 
         // create connection to database
         Connection connection = ConnectionUtil.getConnection();
@@ -64,7 +64,7 @@ public class AccountDAO {
         try {
 
             // sql statement
-            String sql = "SELECT * FROM account WHERE username=?;";
+            String sql = "SELECT username FROM account WHERE username=?;";
     
             // precompiled sql statement
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -80,7 +80,7 @@ public class AccountDAO {
 
                 Account account = new Account (rs.getInt("account_id"), rs.getString("username"), rs.getString("password"));
 
-                return account.getUsername(); 
+                return account; 
 
             }
 

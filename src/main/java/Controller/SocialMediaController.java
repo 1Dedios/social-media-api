@@ -79,11 +79,11 @@ JSON of the Account, including its account_id. The response status should be 200
         String getPassword = account.getPassword();
 
         // reading a login in the database
-        String existingUserName = AccountService.getUserName(account.getUsername());
+        Account existingUserName = AccountService.getUserName(account.getUsername());
 
         // if statements checking for client errors 
         // TODO: method in AccountDAO that compares account.getUsername() with a username in the DB
-        if (account.getUsername().isBlank() || getPassword.length() < 4 || account.getUsername() == existingUserName) {
+        if (account.getUsername().isBlank() || getPassword.length() < 4 || account == existingUserName) {
 
             // if conditions above met then it's a failed registration - ctx.status(400);
             ctx.status(400);
@@ -119,10 +119,10 @@ The response status should be 200 OK, which is the default.
         Account account = mapper.readValue(ctx.body(), Account.class);
         
         // READ operation handled by AccountService and queried by DAO - can maybe use this for the duplicate user in user registration
-        String postedUser = AccountService.getUserName(account.getUsername());
+        Account postedUser = AccountService.getUserName(account.getUsername());
 
         // if username and password match a real account on the db - successful login
-        if (account.getUsername() == postedUser) {
+        if (account == postedUser) {
             // ctx.status(200);
             ctx.status(200);
 
