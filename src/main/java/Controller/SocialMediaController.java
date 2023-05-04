@@ -164,7 +164,7 @@ including its message_id. The response status should be 200, which is the defaul
         Message newMessage = MessageService.newMessage(message);
 
         // READ operation handled by AccountDAO and instantiated by AccountService
-        int getAccountID = AccountService.getAccount_Id(newMessage.getPosted_by());
+        int getAccountID = AccountService.getAccount_Id(newMessage.posted_by);
 
 
         if (!message.getMessage_text().isBlank() && message.getMessage_text().length() <= 255 && message.getPosted_by() == getAccountID) {

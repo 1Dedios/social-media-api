@@ -22,9 +22,9 @@ public class MessageDAO {
 
             PreparedStatement preparedStatement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            preparedStatement.setInt(1, message.posted_by);
+            preparedStatement.setInt(1, message.getPosted_by());
             preparedStatement.setString(2, message.message_text);
-            preparedStatement.setLong(3, message.time_posted_epoch);
+            preparedStatement.setLong(3, message.getTime_posted_epoch());
 
             preparedStatement.executeUpdate();
 
@@ -32,6 +32,7 @@ public class MessageDAO {
 
             if (pKeyResultSet.next()) {
                 int generated_message_id = pKeyResultSet.getInt(1);
+                // int generated_posted_by = pKeyResultSet.getInt(2);
 
                 return new Message(generated_message_id, message.getPosted_by(), message.getMessage_text(), message.getTime_posted_epoch());
             }
