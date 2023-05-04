@@ -166,16 +166,8 @@ including its message_id. The response status should be 200, which is the defaul
         // READ operation handled by AccountDAO and instantiated by AccountService
         int getAccountID = AccountService.getAccount_Id(newMessage.getPosted_by());
 
-        
 
-        // successful if
-        // message_text != "" || message_text.length() < 255 || posted_by == account_id(posted_by is fkey to account_id - DAO - get account by posted_by )
-        // ctx.status(200)
-        // ctx.json(mapper.writeValueAsString(message)) - including message_id
-        // else 
-        // ctx.status(400) - client error
-
-        if (message.getMessage_text().isBlank() || message.getMessage_text().length() < 255 || message.getPosted_by() == getAccountID){
+        if (!message.getMessage_text().isBlank() && message.getMessage_text().length() <= 255 && message.getPosted_by() == getAccountID) {
             ctx.status(200);
             ctx.json(mapper.writeValueAsString(newMessage));
         } else {
