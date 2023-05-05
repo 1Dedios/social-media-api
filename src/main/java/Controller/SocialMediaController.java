@@ -130,7 +130,7 @@ The response status should be 200 OK, which is the default.
             ctx.status(200);
 
             // ctx.json(mapper.writeValueAsString(postedUser))
-            ctx.json(mapper.writeValueAsString(postedUser));
+            ctx.json(postedUser);
         } else {
             ctx.status(401);
         }
@@ -207,7 +207,6 @@ The response status should always be 200, which is the default.
 */
     private void getMessageByID (Context ctx) throws JsonProcessingException {
 
-        ObjectMapper mapper = new ObjectMapper();
 
         // int provided_id = mapper.readValue(ctx.body(), Integer.TYPE);
 
@@ -215,9 +214,14 @@ The response status should always be 200, which is the default.
 
         Message getMessageById = MessageService.getMessageById(message_id);
 
+        // ctx.json(getMessageById);
 
-        ctx.status(200);
-        ctx.json(mapper.writeValueAsString(getMessageById));
+        if (getMessageById != null) {
+            ctx.json(getMessageById);
+        } else {
+            ctx.result("");
+
+        }
 
 
 
@@ -291,15 +295,15 @@ and the response status should be 200, which is the default. The message existin
         
 
         // updating 
-        Message updateMessage = MessageService.updateMessageById(message_id, message.getMessage_text());
+        Message updateMessage = MessageService.updateMessageById(message_id, message.message_text);
 
         // getting message by messageID
         Message getMessageById = MessageService.getMessageById(message_id);
 
         // update successful if
-        if (message_id == getMessageById.getMessage_id() && (message.getMessage_text() != "" && message.getMessage_text().length() < 255)) {
+        if (getMessageById != null && message.getMessage_text() != "" && message.getMessage_text().length() < 255) {
             
-            ctx.json(mapper.writeValueAsString(updateMessage));
+            ctx.result(updateMessage.getMessage_text());
         } else {
             ctx.status(400);
         }

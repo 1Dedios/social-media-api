@@ -133,13 +133,18 @@ public class MessageDAO {
 
             String sql = "DELETE * FROM message WHERE message_id=?;";
 
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            ResultSet rs = preparedStatement.executeQuery(sql);
+            preparedStatement.setInt(1, id);
 
-            while (rs.next()) {
+            preparedStatement.executeUpdate(sql);
 
-                Message messageById = new Message (rs.getInt("message_id"), rs.getInt("posted_by"), rs.getString("message_text"), rs.getLong("time_posted.epoch"));
+            ResultSet pkeyResultSet = preparedStatement.getGeneratedKeys(); 
+
+            while (pkeyResultSet.next()) {
+
+
+                Message messageById = new Message (pkeyResultSet.getInt("message_id"), pkeyResultSet.getInt("posted_by"), pkeyResultSet.getString("message_text"), pkeyResultSet.getLong("time_posted.epoch"));
                 
                 return messageById;
             }
@@ -159,7 +164,7 @@ public class MessageDAO {
 
 
 
-    public void updateMessageById (int id, Message message) {
+    public static Message updateMessageById (int id, Message message) {
 
         Connection connection = ConnectionUtil.getConnection();
 
@@ -167,19 +172,26 @@ public class MessageDAO {
 
             String sql = "UPDATE message SET message_text=? WHERE posted_by=?;";
 
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             preparedStatement.setString(1, message.getMessage_text());
             preparedStatement.setInt(2, id);
 
             preparedStatement.executeUpdate();
 
+            ResultSet pkeyResultSet = preparedStatement.getGeneratedKeys();
 
+            while (pkeyResultSet.next()){
+                Message updatedMessage = new Message (pkeyResultSet.getInt("message_id"), pkeyResultSet.getInt("posted_by"), message.getMessage_text(), pkeyResultSet.getLong("time_posted_epoch"));
+                
+                return updatedMessage;
+            }
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
 
         }
+        return null;
 
 
 

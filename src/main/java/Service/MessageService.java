@@ -38,7 +38,6 @@ public class MessageService {
 
     public static Message getMessageById (int id) {
 
-
         return MessageDAO.getMessageById(id);
 
 
