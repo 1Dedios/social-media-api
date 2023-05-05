@@ -39,10 +39,6 @@ public class MessageService {
     public static Message getMessageById (int id) {
 
 
-        if (MessageDAO.getMessageById(id) == null) {
-            return null;
-        }
-
         return MessageDAO.getMessageById(id);
 
 
